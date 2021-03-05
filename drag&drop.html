@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compitable" content="ie=edge">
+	<title>Document</title>
+</head>
+<style>
+  body {
+  	 background:darksalmon;
+  }
+  .fill {
+  	background:url("mahadev.jpg");
+  	position:relative;
+  	height:150px;
+  	width:150px;
+  	top:5px;
+  	left:5px;
+  	cursor:pointer;
+  }
+.empty {
+	   display:inline-block;
+	   height:160px;
+	   width:160px;
+	   margin:10px;
+	   border:3px salmon solid;
+	   background:white;
+}
+.hold {
+	border:solid #ccc 4px;
+}
+.hovered {
+	background:#f4f4f4;
+	border-style:dashed;
+}
+.invisible {
+	display:none;
+}
+
+	</style>
+<body>
+	    <div class="empty">
+		<div class="fill" draggable="true">
+		</div></div>
+		<div class="empty"></div>
+		<div class="empty"></div>
+		<div class="empty"></div>
+		<div class="empty"></div>
+<script type="text/javascript">
+	const fill    = document.querySelector('.fill');
+	const empties = document.querySelectorAll('.empty')
+
+	//fill listener 
+
+	fill.addEventListener('dragStart' , dragStart);
+	fill.addEventListener('dragEnd' , dragEnd);
+
+     // loop through the empties and drag event
+
+     for(const empty of empties)  {
+           empty.addEventListener('dragover',  dragOver);
+           empty.addEventListener('dragenter', dragEnter);
+           empty.addEventListener('dragleave', dragLeave);
+           empty.addEventListener('drop',      dragDrop);
+
+     }
+
+
+
+
+	/// Drag function 
+
+	function dragStart()  {
+          this.className +="hold";
+          
+          setTimeout( () => (this.className = 'invisible'), 0 );
+	} 
+	
+	function dragEnd()  {
+         this.className='fill';
+}
+   function dragOver(e)  {
+   	e.preventDefault();
+ 
+   }
+   function dragEnter(e)  {
+   	 e.preventDefault();
+   	 this.className+=" hovered"
+   }
+
+function dragLeave()  {
+   		 this.className ="empty"
+   }
+
+function dragDrop()  {
+    this.className ="empty"
+    this.append(fill);
+   }
+
+
+
+
+
+
+</script>
+
+	
+</body>
+</html>
